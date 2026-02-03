@@ -1,290 +1,140 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض فني وجدول زمني</title>
-    <!-- خط تجوال لظهور عربي احترافي -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <!-- مكتبة أيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary: #1a252f;      /* كحلي غامق */
-            --accent: #c0392b;       /* أحمر داكن للعناوين الهامة */
-            --highlight: #f39c12;    /* ذهبي للتميز */
-            --light: #ecf0f1;        /* رمادي فاتح للخلفيات */
-            --dark: #2c3e50;         /* لون النصوص */
-            --white: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #f4f7f6;
-            color: var(--dark);
-            line-height: 1.6;
-            -webkit-print-color-adjust: exact;
-        }
-
-        /* الهيدر */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, #34495e 100%);
-            color: var(--white);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 5px solid var(--highlight);
-        }
-
-        .agency-name {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.8;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 800;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            font-weight: 300;
-            opacity: 0.9;
-        }
-
-        /* المحتوى الرئيسي */
-        .container {
-            max-width: 1000px;
-            margin: -30px auto 40px; /* سحب الكونتينر للأعلى */
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .section-title {
-            border-right: 5px solid var(--highlight);
-            padding-right: 15px;
-            margin: 30px 0 20px;
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-
-        /* الجدول */
-        .table-container {
-            overflow-x: auto; /* للسماح بالسكرول في الموبايل */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 600px; /* لضمان عدم انضغاط الجدول */
-        }
-
-        thead {
-            background-color: var(--primary);
-            color: var(--white);
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: right;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .total-row {
-            background-color: var(--highlight) !important;
-            color: var(--white);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* الملاحظات */
-        .alert-box {
-            background-color: #fff8e1;
-            border: 1px solid #ffe0b2;
-            border-right: 5px solid #ff9800;
-            padding: 20px;
-            border-radius: 6px;
-            margin-top: 30px;
-        }
-
-        .alert-box h3 {
-            color: #e67e22;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert-box ul {
-            margin-right: 20px;
-            list-style-type: disc;
-        }
-
-        .alert-box li {
-            margin-bottom: 8px;
-        }
-
-        /* الفوتر والأزرار */
-        .actions {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .btn {
-            background-color: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Tajawal', sans-serif;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn:hover {
-            background-color: #34495e;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            border-top: 1px solid #eee;
-        }
-
-        /* الطباعة */
-        @media print {
-            body { background-color: white; }
-            .container { box-shadow: none; margin: 0; width: 100%; max-width: 100%; }
-            header { padding: 20px; background: #eee !important; color: black !important; -webkit-print-color-adjust: exact; }
-            .btn { display: none; }
-        }
-
-        /* تحسينات الموبايل */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .container { padding: 20px; margin-top: -20px; }
-            th, td { padding: 10px; font-size: 0.9rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mayor Signature</title>
+<style>
+  /* ضمان عدم تغيير الأحجام تلقائياً */
+  body, table, td, p, a, div {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.4;
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+  }
+  table { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+  img { border: 0; outline: none; text-decoration: none; display: block; -ms-interpolation-mode: bicubic; }
+</style>
 </head>
-<body>
+<body style="margin: 0; padding: 0; background-color: #f6f6f6;">
 
-    <header>
-        <h1>خطة تطوير منصة الحجوزات الشاملة</h1>
-        <p class="subtitle">عرض فني وجدول زمني لمشروع Directory & Booking Platform</p>
-    </header>
-
-    <div class="container">
+<div style="background-color: #f6f6f6; padding: 10px;">
+  
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f6f6f6;">
+    <tr>
+      <td align="center">
         
-        <p style="font-size: 1.1rem; margin-bottom: 20px;">
-            السادة العملاء الكرام،<br>
-            يسعدنا أن نقدم لكم الجدول الزمني المفصل لتنفيذ مشروع المنصة. تم وضع هذا الجدول بناءً على تحليل دقيق للمتطلبات التقنية لضمان تسليم منتج عالي الجودة ومستقر.
-        </p>
-
-        <h2 class="section-title"><i class="fa-solid fa-calendar-check"></i> مراحل التنفيذ والجدول الزمني</h2>
-
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 50px;">#</th>
-                        <th>المرحلة / الميزة التقنية</th>
-                        <th style="width: 150px;">المدة المقدرة</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>هيكلة الأقسام الرئيسية والفرعية (Categories) وتصميم الأيقونات</td><td>3 أيام عمل</td></tr>
-                    <tr><td>2</td><td>برمجة باقات الاشتراك (ذهبي، فضي) ومنطق التجديد</td><td>4 أيام عمل</td></tr>
-                    <tr><td>3</td><td>إعداد نظام الحجز المتقدم (Booking System) والفترات الزمنية</td><td>3 أيام عمل</td></tr>
-                    <tr><td>4</td><td>تكامل نظام التنبيهات (SMS & Email Automation)</td><td>5 أيام عمل</td></tr>
-                    <tr><td>5</td><td>بناء نظام التقييمات المتعدد للموقع ومقدمي الخدمة</td><td>2 يوم عمل</td></tr>
-                    <tr><td>6</td><td>برمجة قائمة المفضلة (Wishlist) وتكاملها مع الواجهة</td><td>2 يوم عمل</td></tr>
-                    <tr><td>7</td><td>دمج API خرائط جوجل + نظام التقييمات الداخلية</td><td>3 أيام عمل</td></tr>
-                    <tr><td>8</td><td>معايرة الخرائط الجغرافية وخوارزمية "الأقرب لك"</td><td>4 أيام عمل</td></tr>
-                    <tr><td>9</td><td>إعداد نظام العروض الترويجية (Coupons) وإدارة الحملات</td><td>3 أيام عمل</td></tr>
-                    <tr><td>10</td><td>ربط وتأمين بوابات الدفع الإلكتروني + خيارات الكاش</td><td>7 - 10 أيام عمل</td></tr>
-                    <tr><td>11</td><td>تخصيص واجهة "فريق العمل" (Staff Profile) ومعرض الأعمال</td><td>4 أيام عمل</td></tr>
-                    <tr><td>12</td><td>تعريب وتخصيص لوحات التحكم (Dashboards UX/UI)</td><td>5 أيام عمل</td></tr>
-                    <tr><td>13</td><td>تصميم وبرمجة النوافذ التوجيهية (Popups)</td><td>2 يوم عمل</td></tr>
-                    <tr><td>14</td><td>دمج الخرائط التفاعلية داخل صفحات مقدمي الخدمة</td><td>2 يوم عمل</td></tr>
-                    <tr><td>15</td><td>برمجة الروابط المختصرة والديناميكية للمشاركة</td><td>2 يوم عمل</td></tr>
-                    <tr><td>16</td><td>ضبط العمليات المالية لنظام "العربون" والعمولات</td><td>3 أيام عمل</td></tr>
-                    <tr><td>17</td><td>تكامل روابط السوشيال ميديا والتحقق منها</td><td>1 يوم عمل</td></tr>
-                    <tr><td>18</td><td>إعداد وتدريب واجهة "إدارة المواعيد" (Calendar)</td><td>3 أيام عمل</td></tr>
-                    <tr><td>19</td><td>ضبط دورات الفوترة (3، 7، 12 شهر)</td><td>مدمج</td></tr>
-                    <tr><td>20</td><td>برمجة نظام التحقق من "السجل التجاري" والمصادقة</td><td>3 أيام عمل</td></tr>
-                    <tr><td>21</td><td>تطوير المحفظة الإلكترونية وبطاقات الهدايا (Gift Cards)</td><td>5 أيام عمل</td></tr>
-                    <tr><td>22</td><td>ضبط خوارزميات ساعات العمل والفتح التلقائي</td><td>2 يوم عمل</td></tr>
-                    <tr><td>--</td><td><strong>مرحلة الاختبار النهائي (QA) قبل الإطلاق</strong></td><td><strong>7 - 10 أيام عمل</strong></td></tr>
+        <div style="background-color: #000000 !important; max-width: 600px; margin: 0 auto; border-radius: 6px; overflow: hidden;">
+          <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #000000 !important; width: 600px; margin: 0 auto; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 25px 20px;">
+                
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
                     
-                    <tr class="total-row">
-                        <td colspan="2">المدة الزمنية الكلية للمشروع</td>
-                        <td>45 - 60 يوماً</td>
-                    </tr>
-                </tbody>
-            </table>
+                    <td width="180" valign="middle" align="center" style="width: 180px; padding-right: 15px; border-right: 1px solid #333333;">
+                      <a href="https://themayor.me" style="text-decoration: none;">
+                        <img src="https://themayor.me/wp-content/uploads/2025/10/2x.png" alt="The Mayor Agency" width="160" style="width: 160px; height: auto; display: block;">
+                      </a>
+                    </td>
+                    
+                    <td valign="middle" style="padding-left: 20px;">
+                      
+                      <div style="font-size: 22px; font-weight: 800; color: #ffffff !important; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; white-space: nowrap;">
+                        SADA
+                      </div>
+                      
+                      <div style="margin-bottom: 20px;">
+                        <div style="font-size: 14px; font-weight: 700; color: #eda87c !important; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 3px; white-space: nowrap;">
+                          MANAGING DIRECTOR
+                        </div>
+                        <div style="font-size: 12px; color: #aaaaaa !important;">
+                          The Mayor Marketing Agency
+                        </div>
+                      </div>
+
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                          <td width="22" style="padding-bottom: 10px; vertical-align: middle;">
+                            <img src="https://img.icons8.com/ios-filled/50/eda87c/smartphone.png" width="16" height="16" alt="M">
+                          </td>
+                          <td style="padding-bottom: 10px; vertical-align: middle; font-size: 13px; color: #cccccc !important;">
+                            <a href="tel:+971527110895" style="text-decoration: none; color: #cccccc !important; white-space: nowrap;">+971 52 711 0895</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="22" style="padding-bottom: 10px; vertical-align: middle;">
+                            <img src="https://img.icons8.com/ios-filled/50/eda87c/new-post.png" width="16" height="16" alt="E">
+                          </td>
+                          <td style="padding-bottom: 10px; vertical-align: middle; font-size: 13px; color: #cccccc !important;">
+                            <a href="mailto:sada@themayor.me" style="text-decoration: none; color: #cccccc !important; white-space: nowrap;">sada@themayor.me</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="22" style="padding-bottom: 10px; vertical-align: middle;">
+                            <img src="https://img.icons8.com/ios-filled/50/eda87c/globe.png" width="16" height="16" alt="W">
+                          </td>
+                          <td style="padding-bottom: 10px; vertical-align: middle; font-size: 13px; color: #cccccc !important;">
+                            <a href="https://themayor.me" style="text-decoration: none; color: #cccccc !important; white-space: nowrap;">www.themayor.me</a>
+                          </td>
+                        </tr>
+                      </table>
+
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+            
+            <tr>
+              <td style="background-color: #0d0d0d !important; padding: 12px 20px; border-top: 1px solid #1f1f1f;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td width="65%" align="left" valign="middle">
+                       <table border="0" cellpadding="0" cellspacing="0">
+                         <tr>
+                           <td valign="middle" style="padding-right: 6px;">
+                             <img src="https://img.icons8.com/ios-filled/50/eda87c/marker.png" width="14" height="14" alt="Loc">
+                           </td>
+                           <td valign="middle" style="font-size: 11px; color: #666666 !important; white-space: nowrap;">
+                             Dubai Commercity , UAE
+                           </td>
+                         </tr>
+                       </table>
+                    </td>
+                    
+                    <td width="35%" align="right" valign="middle">
+                       <table border="0" cellpadding="0" cellspacing="0" align="right" style="float: right;">
+                         <tr>
+                           <td style="padding-left: 12px;">
+                             <a href="https://www.instagram.com/themayor.me/" style="text-decoration: none; display: block;">
+                              <img src="https://img.icons8.com/fluency/48/instagram-new.png" width="20" height="20" alt="IG">
+                            </a>
+                           </td>
+                           <td style="padding-left: 12px;">
+                            <a href="https://www.linkedin.com/company/themayormarketingagency/?originalSubdomain=ae" style="text-decoration: none; display: block;">
+                              <img src="https://img.icons8.com/color/48/linkedin.png" width="20" height="20" alt="LI">
+                            </a>
+                           </td>
+                         </tr>
+                       </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            
+            <tr>
+              <td height="5" style="background-color: #eda87c !important; font-size: 0; line-height: 0;">&nbsp;</td>
+            </tr>
+
+          </table>
         </div>
-
-        <div class="alert-box">
-            <h3><i class="fa-solid fa-triangle-exclamation"></i> ملاحظات هامة لضمان سير العمل:</h3>
-            <ul>
-                <li><strong>المتطلبات الخارجية (Dependencies):</strong> ميزات مثل (SMS، خرائط Google، وبوابات الدفع) تعتمد على موافقات وتفعيل من شركات خارجية. أي تأخير في استخراج الأوراق أو التفعيل من طرفهم قد يؤثر على موعد التسليم وهو خارج عن إرادة المطور.</li>
-                <li><strong>إدخال المحتوى (Content):</strong> يشمل هذا العرض البناء البرمجي والهيكلي فقط. عملية إدخال بيانات المحلات، الصور، وقوائم الأسعار هي مسؤولية إدارة الموقع (Data Entry).</li>
-                <li><strong>المرونة:</strong> يتم العمل على بعض المهام بالتوازي لاختصار الوقت، ولكن المدة الإجمالية وضعت لتشمل فترات الاختبار الدقيق (Debugging) لضمان منصة خالية من الأخطاء.</li>
-            </ul>
-        </div>
-
-        <div class="actions">
-            <button onclick="window.print()" class="btn">
-                <i class="fa-solid fa-print"></i> طباعة العرض / حفظ PDF
-            </button>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2024 جميع الحقوق محفوظة</p>
-    </footer>
+      </td>
+    </tr>
+  </table>
+</div>
 
 </body>
 </html>
